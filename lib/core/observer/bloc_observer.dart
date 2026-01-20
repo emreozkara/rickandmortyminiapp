@@ -1,0 +1,19 @@
+import 'dart:developer';
+
+import 'package:bloc/bloc.dart';
+
+class AppBlocObserver extends BlocObserver {
+  const AppBlocObserver();
+
+  @override
+  void onChange(BlocBase<dynamic> bloc, Change<dynamic> change) {
+    log('onChange(${change.nextState})');
+    super.onChange(bloc, change);
+  }
+
+  @override
+  void onError(BlocBase<dynamic> bloc, Object error, StackTrace stackTrace) {
+    log('onError(${bloc.runtimeType}, $error, $stackTrace)');
+    super.onError(bloc, error, stackTrace);
+  }
+}

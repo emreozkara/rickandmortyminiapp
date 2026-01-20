@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:hexcolor/hexcolor.dart';
+import 'package:rickandmortyapp/core/router/nav.dart';
+import 'package:rickandmortyapp/page/home_screen.dart';
+import 'package:rickandmortyapp/ui_kit/layout/default_scaffold.dart';
+import 'package:rickandmortyapp/ui_kit/theme/app_colors.dart';
+import 'package:rickandmortyapp/ui_kit/theme/typography.dart';
+import 'package:rickandmortyapp/ui_kit/button/button.dart';
 
 class WelcomePage extends StatelessWidget {
+  static const String path = '/';
+
   final VoidCallback? onStart;
 
   const WelcomePage({super.key, this.onStart});
@@ -11,7 +17,7 @@ class WelcomePage extends StatelessWidget {
     if (onStart != null) {
       onStart!();
     } else {
-      context.go('/home');
+      Go.andReplace(HomeScreen.path);
     }
   }
 
@@ -19,7 +25,8 @@ class WelcomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     double screenwidth = MediaQuery.of(context).size.width;
     double screenheight = MediaQuery.of(context).size.height;
-    return Scaffold(
+    return DefaultScaffold(
+      showBackButton: false,
       body: Column(
         children: [
           Center(
@@ -31,22 +38,17 @@ class WelcomePage extends StatelessWidget {
           ),
           Text(
             "Rick and Morty Wiki",
-            style: TextStyle(
-              fontFamily: "cartoon",
+            style: AppTextStyle.cartoonTitle.copyWith(
               fontSize: screenwidth * 0.08,
-              color: HexColor("#ffffff"),
-              fontWeight: FontWeight.bold,
+              color: AppColors.white,
             ),
           ),
           SizedBox(height: screenheight * 0.02),
           Text(
             "Explore the universe of Rick and Morty with our wiki.",
             textAlign: TextAlign.center,
-            style: TextStyle(
-              fontFamily: "cartoon",
+            style: AppTextStyle.cartoonBody.copyWith(
               fontSize: screenwidth * 0.04,
-              color: HexColor("#ffffff"),
-              fontWeight: FontWeight.w400,
             ),
           ),
           Expanded(
@@ -66,34 +68,21 @@ class WelcomePage extends StatelessWidget {
                       width: screenwidth * 0.60,
                       height: screenheight * 0.60,
                     ),
-
                     Padding(
                       padding: EdgeInsets.only(
                         right: screenwidth * 0.08,
                         bottom: screenheight * 0.20,
                       ),
-                      child: IconButton(
+                      child: Button.icon(
                         onPressed: () => _navigateToHome(context),
-                        icon: Container(
-                          padding: const EdgeInsets.all(12),
-                          decoration: BoxDecoration(
-                            color: HexColor('#97ce4c'),
-                            shape: BoxShape.circle,
-                            boxShadow: [
-                              BoxShadow(
-                                color: HexColor(
-                                  '#97ce4c',
-                                ).withValues(alpha: 0.5),
-                                blurRadius: 15,
-                                spreadRadius: 2,
-                              ),
-                            ],
-                          ),
-                          child: Icon(
-                            Icons.arrow_forward_ios,
-                            size: screenwidth * 0.06,
-                            color: HexColor('#1a1a2e'),
-                          ),
+                        icon: Icons.arrow_forward_ios,
+                        iconColor: AppColors.background,
+                        iconSize: screenwidth * 0.06,
+                        backgroundColor: AppColors.primary,
+                        showContainer: true,
+                        containerPadding: 12,
+                        boxShadowColor: AppColors.primary.withValues(
+                          alpha: 0.5,
                         ),
                       ),
                     ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:hexcolor/hexcolor.dart';
+import 'package:rickandmortyapp/ui_kit/theme/app_colors.dart';
+import 'package:rickandmortyapp/ui_kit/theme/typography.dart';
 
 class InfoChip extends StatelessWidget {
   final IconData icon;
@@ -27,7 +28,10 @@ class InfoChip extends StatelessWidget {
         children: [
           Icon(icon, size: 14, color: color),
           const SizedBox(width: 4),
-          Text(label, style: TextStyle(color: color, fontSize: 12)),
+          Text(
+            label,
+            style: TextStyle(color: color, fontSize: 12, fontFamily: 'cartoon'),
+          ),
         ],
       ),
     );
@@ -47,12 +51,14 @@ class InfoRow extends StatelessWidget {
       children: [
         Text(
           '$label: ',
-          style: const TextStyle(color: Colors.white54, fontSize: 14),
+          style: AppTextStyle.cartoonSmall.copyWith(
+            color: AppColors.textSecondary,
+          ),
         ),
         Expanded(
           child: Text(
             value,
-            style: const TextStyle(color: Colors.white, fontSize: 14),
+            style: AppTextStyle.cartoonSmall.copyWith(color: AppColors.white),
           ),
         ),
       ],
@@ -78,14 +84,14 @@ class EpisodeHeader extends StatelessWidget {
       margin: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [HexColor('#16213e'), HexColor('#0f3460')],
+          colors: [AppColors.surface, AppColors.surfaceVariant],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
-            color: HexColor('#97ce4c').withValues(alpha: 0.2),
+            color: AppColors.primary.withValues(alpha: 0.2),
             blurRadius: 10,
             offset: const Offset(0, 4),
           ),
@@ -97,28 +103,20 @@ class EpisodeHeader extends StatelessWidget {
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
             decoration: BoxDecoration(
-              color: HexColor('#97ce4c'),
+              color: AppColors.primary,
               borderRadius: BorderRadius.circular(20),
             ),
             child: Text(
               episodeCode,
-              style: TextStyle(
-                fontFamily: 'cartoon',
-                fontSize: 12,
-                color: HexColor('#1a1a2e'),
-                fontWeight: FontWeight.bold,
+              style: AppTextStyle.cartoonExtraSmall.copyWith(
+                color: AppColors.background,
               ),
             ),
           ),
           const SizedBox(height: 12),
           Text(
             episodeName,
-            style: const TextStyle(
-              fontFamily: 'cartoon',
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
-            ),
+            style: AppTextStyle.cartoonTitle.copyWith(color: AppColors.white),
           ),
         ],
       ),

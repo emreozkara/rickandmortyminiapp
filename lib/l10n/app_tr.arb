@@ -1,0 +1,20 @@
+{
+  "@@locale": "tr",
+  "appTitle": "Rick and Morty Wiki",
+  "characters": "Karakterler",
+  "episodes": "Bölümler",
+  "searchCharacters": "Karakter ara...",
+  "origin": "Köken",
+  "location": "Konum",
+  "episodesInThisCharacter": "Bölümler ({count})",
+  "charactersInThisEpisode": "Bu bölümdeki karakterler ({count})",
+  "alive": "Canlı",
+  "dead": "Ölü",
+  "unknown": "Bilinmiyor",
+  "welcomeTitle": "Rick and Morty Wiki",
+  "welcomeSubtitle": "Rick and Morty evrenini wiki'miz ile keşfedin.",
+  "noResults": "Sonuç bulunamadı",
+  "retry": "Tekrar Dene",
+  "loading": "Yükleniyor...",
+  "error": "Bir hata oluştu"
+}

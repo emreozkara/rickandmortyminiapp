@@ -18,8 +18,6 @@ class EpisodeModel with _$EpisodeModel {
   factory EpisodeModel.fromJson(Map<String, dynamic> json) =>
       _$EpisodeModelFromJson(json);
 
-  /// Custom factory for API response with episode string conversion
-  /// Converts "S01E01" to "Season 1 Episode 1"
   factory EpisodeModel.fromMap(Map<String, dynamic> map) {
     final episodeString = map["episode"] as String;
     final episodeList = episodeString.replaceAll('S', '').split('E');

@@ -1,0 +1,34 @@
+{
+  "@@locale": "en",
+  "appTitle": "Rick and Morty Wiki",
+  "characters": "Characters",
+  "episodes": "Episodes",
+  "searchCharacters": "Search characters...",
+  "origin": "Origin",
+  "location": "Location",
+  "episodesInThisCharacter": "Episodes ({count})",
+  "@episodesInThisCharacter": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "charactersInThisEpisode": "Characters in this episode ({count})",
+  "@charactersInThisEpisode": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "alive": "Alive",
+  "dead": "Dead",
+  "unknown": "Unknown",
+  "welcomeTitle": "Rick and Morty Wiki",
+  "welcomeSubtitle": "Explore the universe of Rick and Morty with our wiki.",
+  "noResults": "No results found",
+  "retry": "Retry",
+  "loading": "Loading...",
+  "error": "An error occurred"
+}

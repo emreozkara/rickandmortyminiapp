@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:hexcolor/hexcolor.dart';
+import 'package:rickandmortyapp/core/router/nav.dart';
 import 'package:rickandmortyapp/data/models/character/character_model.dart';
+import 'package:rickandmortyapp/page/character_detail_screen.dart';
+import 'package:rickandmortyapp/ui_kit/theme/app_colors.dart';
+import 'package:rickandmortyapp/ui_kit/theme/typography.dart';
 
 class CharacterMiniCard extends StatelessWidget {
   final CharacterModel character;
@@ -12,15 +14,15 @@ class CharacterMiniCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        context.push('/character', extra: character);
+        Go.to(CharacterDetailScreen.path, arguments: character);
       },
       child: Container(
         decoration: BoxDecoration(
-          color: HexColor('#16213e'),
+          color: AppColors.surface,
           borderRadius: BorderRadius.circular(12),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withValues(alpha: 0.3),
+              color: AppColors.black.withValues(alpha: 0.3),
               blurRadius: 4,
               offset: const Offset(0, 2),
             ),
@@ -47,10 +49,9 @@ class CharacterMiniCard extends StatelessWidget {
                   children: [
                     Text(
                       character.name,
-                      style: TextStyle(
+                      style: AppTextStyle.cartoonExtraSmall.copyWith(
                         fontSize: 10,
-                        fontWeight: FontWeight.bold,
-                        color: HexColor('#97ce4c'),
+                        color: AppColors.primary,
                       ),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
@@ -70,9 +71,9 @@ class CharacterMiniCard extends StatelessWidget {
                         const SizedBox(width: 4),
                         Text(
                           character.status,
-                          style: const TextStyle(
+                          style: AppTextStyle.cartoonExtraSmall.copyWith(
                             fontSize: 8,
-                            color: Colors.white54,
+                            color: AppColors.textSecondary,
                           ),
                         ),
                       ],
@@ -90,11 +91,11 @@ class CharacterMiniCard extends StatelessWidget {
   Color _getStatusColor(String status) {
     switch (status.toLowerCase()) {
       case 'alive':
-        return Colors.green;
+        return AppColors.alive;
       case 'dead':
-        return Colors.red;
+        return AppColors.dead;
       default:
-        return Colors.grey;
+        return AppColors.unknown;
     }
   }
 }

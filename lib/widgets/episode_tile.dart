@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:hexcolor/hexcolor.dart';
+import 'package:rickandmortyapp/core/router/nav.dart';
 import 'package:rickandmortyapp/data/models/episode/episode_model.dart';
+import 'package:rickandmortyapp/page/episode_detail_screen.dart';
+import 'package:rickandmortyapp/ui_kit/theme/app_colors.dart';
+import 'package:rickandmortyapp/ui_kit/theme/typography.dart';
 
 class EpisodeTile extends StatelessWidget {
   final EpisodeModel episode;
@@ -13,7 +15,7 @@ class EpisodeTile extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
       decoration: BoxDecoration(
-        color: HexColor('#16213e'),
+        color: AppColors.surface,
         borderRadius: BorderRadius.circular(12),
       ),
       child: ListTile(
@@ -22,39 +24,35 @@ class EpisodeTile extends StatelessWidget {
           width: 50,
           height: 50,
           decoration: BoxDecoration(
-            color: HexColor('#97ce4c').withValues(alpha: 0.2),
+            color: AppColors.primary.withValues(alpha: 0.2),
             borderRadius: BorderRadius.circular(8),
           ),
           child: Center(
             child: Text(
               episode.id,
-              style: TextStyle(
-                fontFamily: 'cartoon',
-                fontSize: 16,
-                color: HexColor('#97ce4c'),
-                fontWeight: FontWeight.bold,
+              style: AppTextStyle.cartoonBody.copyWith(
+                color: AppColors.primary,
               ),
             ),
           ),
         ),
         title: Text(
           episode.name,
-          style: const TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-          ),
+          style: AppTextStyle.cartoonSmall.copyWith(color: AppColors.white),
         ),
         subtitle: Text(
           episode.episode,
-          style: const TextStyle(color: Colors.white54),
+          style: AppTextStyle.cartoonExtraSmall.copyWith(
+            color: AppColors.textSecondary,
+          ),
         ),
         trailing: Icon(
           Icons.arrow_forward_ios,
-          color: HexColor('#97ce4c'),
+          color: AppColors.primary,
           size: 16,
         ),
         onTap: () {
-          context.push('/episode', extra: episode);
+          Go.to(EpisodeDetailScreen.path, arguments: episode);
         },
       ),
     );
