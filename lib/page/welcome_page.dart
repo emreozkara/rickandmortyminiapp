@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rickandmortyapp/core/router/nav.dart';
+import 'package:rickandmortyapp/l10n/app_localizations.dart';
 import 'package:rickandmortyapp/page/home_screen.dart';
 import 'package:rickandmortyapp/ui_kit/layout/default_scaffold.dart';
 import 'package:rickandmortyapp/ui_kit/theme/app_colors.dart';
@@ -37,7 +38,7 @@ class WelcomePage extends StatelessWidget {
             ),
           ),
           Text(
-            "Rick and Morty Wiki",
+            AppLocalizations.of(context)!.welcomeTitle,
             style: AppTextStyle.cartoonTitle.copyWith(
               fontSize: screenwidth * 0.08,
               color: AppColors.white,
@@ -45,7 +46,7 @@ class WelcomePage extends StatelessWidget {
           ),
           SizedBox(height: screenheight * 0.02),
           Text(
-            "Explore the universe of Rick and Morty with our wiki.",
+            AppLocalizations.of(context)!.welcomeSubtitle,
             textAlign: TextAlign.center,
             style: AppTextStyle.cartoonBody.copyWith(
               fontSize: screenwidth * 0.04,

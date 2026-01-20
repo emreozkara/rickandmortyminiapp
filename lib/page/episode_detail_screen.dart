@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rickandmortyapp/data/models/character/character_model.dart';
 import 'package:rickandmortyapp/data/models/episode/episode_model.dart';
+import 'package:rickandmortyapp/l10n/app_localizations.dart';
 import 'package:rickandmortyapp/providers/episode_detail_provider.dart';
 import 'package:rickandmortyapp/ui_kit/layout/default_scaffold.dart';
 import 'package:rickandmortyapp/ui_kit/theme/app_colors.dart';
@@ -50,7 +51,9 @@ class _EpisodeDetailView extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16),
                       child: Text(
-                        'Characters (${provider.characters.length})',
+                        AppLocalizations.of(
+                          context,
+                        )!.charactersInThisEpisode(provider.characters.length),
                         style: AppTextStyle.cartoonSmall.copyWith(
                           color: AppColors.primary,
                         ),

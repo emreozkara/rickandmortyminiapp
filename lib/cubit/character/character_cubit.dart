@@ -1,32 +1,27 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:rickandmortyapp/data/models/character/character_model.dart';
-import 'package:rickandmortyapp/data/models/info/info_model.dart';
 import 'package:rickandmortyapp/services/character_services.dart';
 
 part 'character_state.dart';
 part 'character_cubit.freezed.dart';
 
 class CharacterCubit extends Cubit<CharacterState> {
-  final CharacterService _service;
+  final ICharacterService _service;
 
-  CharacterCubit({CharacterService? service})
+  CharacterCubit({ICharacterService? service})
     : _service = service ?? CharacterService(),
       super(const CharacterState.initial());
 
   Future<void> fetchCharacters() async {
     emit(const CharacterState.loading());
     try {
-      final data = await _service.getCharacters(page: 1);
-      final info = InfoModel.fromJson(data['info']);
-      final characters = (data['results'] as List)
-          .map((json) => CharacterModel.fromJson(json))
-          .toList();
+      final response = await _service.getCharacters(page: 1);
 
       emit(
         CharacterState.loaded(
-          characters: characters,
-          hasMore: info.next != null,
+          characters: response.characters,
+          hasMore: response.info.next != null,
           currentPage: 1,
         ),
       );
@@ -40,16 +35,12 @@ class CharacterCubit extends Cubit<CharacterState> {
     if (currentState is CharacterLoaded && currentState.hasMore) {
       try {
         final nextPage = currentState.currentPage + 1;
-        final data = await _service.getCharacters(page: nextPage);
-        final info = InfoModel.fromJson(data['info']);
-        final characters = (data['results'] as List)
-            .map((json) => CharacterModel.fromJson(json))
-            .toList();
+        final response = await _service.getCharacters(page: nextPage);
 
         emit(
           currentState.copyWith(
-            characters: [...currentState.characters, ...characters],
-            hasMore: info.next != null,
+            characters: [...currentState.characters, ...response.characters],
+            hasMore: response.info.next != null,
             currentPage: nextPage,
           ),
         );
@@ -71,16 +62,12 @@ class CharacterCubit extends Cubit<CharacterState> {
 
     emit(const CharacterState.loading());
     try {
-      final data = await _service.searchCharacters(name: name);
-      final info = InfoModel.fromJson(data['info']);
-      final characters = (data['results'] as List)
-          .map((json) => CharacterModel.fromJson(json))
-          .toList();
+      final response = await _service.searchCharacters(name: name);
 
       emit(
         CharacterState.loaded(
-          characters: characters,
-          hasMore: info.next != null,
+          characters: response.characters,
+          hasMore: response.info.next != null,
           currentPage: 1,
         ),
       );

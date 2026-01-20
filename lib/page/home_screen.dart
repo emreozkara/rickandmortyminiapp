@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rickandmortyapp/core/router/nav.dart';
+import 'package:rickandmortyapp/l10n/app_localizations.dart';
 import 'package:rickandmortyapp/page/character_detail_screen.dart';
 import 'package:rickandmortyapp/ui_kit/layout/default_scaffold.dart';
 import 'package:rickandmortyapp/ui_kit/theme/app_colors.dart';
@@ -61,8 +62,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return DefaultScaffold(
-      title: 'Characters',
+      title: l10n.characters,
       showBackButton: false,
       useCollapsingAppBar: true,
       body: Column(
@@ -71,7 +73,7 @@ class _HomeScreenState extends State<HomeScreen> {
             padding: const EdgeInsets.all(8),
             child: Input.text(
               controller: _searchController,
-              hintText: 'Search characters...',
+              hintText: l10n.searchCharacters,
               prefixIcon: Icons.search,
               textColor: AppColors.white,
               backgroundColor: AppColors.surface,

@@ -1,31 +1,57 @@
 import 'package:rickandmortyapp/core/config/http_client.dart';
+import 'package:rickandmortyapp/data/models/character/character_model.dart';
+import 'package:rickandmortyapp/data/models/episode/episode_model.dart';
 
-class EpisodeService {
-  Future<List<dynamic>> getEpisodesByUrls(List<String> urls) async {
+abstract class IEpisodeService {
+  Future<List<EpisodeModel>> getEpisodesByUrls(List<String> urls);
+  Future<EpisodeModel> getEpisodeById(int id);
+  Future<List<CharacterModel>> getCharactersByUrls(List<String> urls);
+}
+
+class EpisodeService implements IEpisodeService {
+  @override
+  Future<List<EpisodeModel>> getEpisodesByUrls(List<String> urls) async {
     if (urls.isEmpty) return [];
 
-    final ids = urls.map((url) => url.split('/').last).join(',');
-    final data = await HttpClient.instance.get('/episode/$ids');
+    try {
+      final ids = urls.map((url) => url.split('/').last).join(',');
+      final data = await HttpClient.instance.get('/episode/$ids');
 
-    if (data is List) {
-      return data;
+      if (data is List) {
+        return data.map<EpisodeModel>((e) => EpisodeModel.fromMap(e)).toList();
+      }
+      return [EpisodeModel.fromMap(data)];
+    } catch (e) {
+      rethrow;
     }
-    return [data];
   }
 
-  Future<Map<String, dynamic>> getEpisodeById(int id) async {
-    return await HttpClient.instance.get('/episode/$id');
+  @override
+  Future<EpisodeModel> getEpisodeById(int id) async {
+    try {
+      final data = await HttpClient.instance.get('/episode/$id');
+      return EpisodeModel.fromMap(data);
+    } catch (e) {
+      rethrow;
+    }
   }
 
-  Future<List<dynamic>> getCharactersByUrls(List<String> urls) async {
+  @override
+  Future<List<CharacterModel>> getCharactersByUrls(List<String> urls) async {
     if (urls.isEmpty) return [];
 
-    final ids = urls.map((url) => url.split('/').last).join(',');
-    final data = await HttpClient.instance.get('/character/$ids');
+    try {
+      final ids = urls.map((url) => url.split('/').last).join(',');
+      final data = await HttpClient.instance.get('/character/$ids');
 
-    if (data is List) {
-      return data;
+      if (data is List) {
+        return data
+            .map<CharacterModel>((e) => CharacterModel.fromJson(e))
+            .toList();
+      }
+      return [CharacterModel.fromJson(data)];
+    } catch (e) {
+      rethrow;
     }
-    return [data];
   }
 }

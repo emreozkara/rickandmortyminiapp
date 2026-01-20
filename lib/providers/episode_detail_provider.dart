@@ -4,9 +4,9 @@ import 'package:rickandmortyapp/data/models/episode/episode_model.dart';
 import 'package:rickandmortyapp/services/episode_service.dart';
 
 class EpisodeDetailProvider extends ChangeNotifier {
-  final EpisodeService _episodeService;
+  final IEpisodeService _episodeService;
 
-  EpisodeDetailProvider({EpisodeService? episodeService})
+  EpisodeDetailProvider({IEpisodeService? episodeService})
     : _episodeService = episodeService ?? EpisodeService();
   EpisodeModel? _episode;
   List<CharacterModel> _characters = [];
@@ -25,12 +25,9 @@ class EpisodeDetailProvider extends ChangeNotifier {
 
     try {
       if (episode.characters.isNotEmpty) {
-        final charactersData = await _episodeService.getCharactersByUrls(
+        _characters = await _episodeService.getCharactersByUrls(
           episode.characters,
         );
-        _characters = charactersData
-            .map((e) => CharacterModel.fromJson(e))
-            .toList();
       }
 
       _isLoading = false;

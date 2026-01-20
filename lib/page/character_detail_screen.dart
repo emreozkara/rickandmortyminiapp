@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rickandmortyapp/data/models/character/character_model.dart';
 import 'package:rickandmortyapp/data/models/episode/episode_model.dart';
+import 'package:rickandmortyapp/l10n/app_localizations.dart';
 import 'package:rickandmortyapp/providers/character_detail_provider.dart';
 import 'package:rickandmortyapp/ui_kit/layout/default_scaffold.dart';
 import 'package:rickandmortyapp/ui_kit/theme/app_colors.dart';
@@ -39,12 +40,16 @@ class _CharacterDetailView extends StatelessWidget {
           return CustomScrollView(
             slivers: [
               _buildSliverAppBar(context, character),
-              SliverToBoxAdapter(child: _buildCharacterInfo(character)),
+              SliverToBoxAdapter(
+                child: _buildCharacterInfo(context, character),
+              ),
               SliverToBoxAdapter(
                 child: Padding(
                   padding: const EdgeInsets.all(16),
                   child: Text(
-                    'Episodes (${provider.episodes.length})',
+                    AppLocalizations.of(
+                      context,
+                    )!.episodesInThisCharacter(provider.episodes.length),
                     style: AppTextStyle.cartoonSubtitle,
                   ),
                 ),
@@ -94,7 +99,7 @@ class _CharacterDetailView extends StatelessWidget {
     );
   }
 
-  Widget _buildCharacterInfo(CharacterModel character) {
+  Widget _buildCharacterInfo(BuildContext context, CharacterModel character) {
     return Container(
       padding: const EdgeInsets.all(16),
       child: Column(
@@ -127,9 +132,15 @@ class _CharacterDetailView extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 16),
-          InfoRow(label: 'Origin', value: character.origin.name),
+          InfoRow(
+            label: AppLocalizations.of(context)!.origin,
+            value: character.origin.name,
+          ),
           const SizedBox(height: 8),
-          InfoRow(label: 'Location', value: character.location.name),
+          InfoRow(
+            label: AppLocalizations.of(context)!.location,
+            value: character.location.name,
+          ),
         ],
       ),
     );

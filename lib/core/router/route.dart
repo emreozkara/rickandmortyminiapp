@@ -29,7 +29,7 @@ final class AppRouter {
       default:
         return MaterialPageRoute(
           builder: (_) => Scaffold(
-            backgroundColor: AppColors.surface,
+            backgroundColor: AppColors.background,
             body: const Center(child: Text('Page not found')),
           ),
         );
